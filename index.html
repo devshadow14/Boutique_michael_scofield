@@ -193,6 +193,7 @@
     font-size:15px;
     margin-top: 8px;
   }
+  .btn-primary:disabled{ opacity: 0.6; }
   .btn-outline{
     width:100%;
     padding: 14px;
@@ -216,6 +217,11 @@
   .tab.active{ background: var(--red); color:#fff; border-color: var(--red); }
   .history-list{ display:flex; flex-direction:column; gap:10px; }
   .empty-state{ text-align:center; padding: 40px 20px; color: var(--muted); font-size: 13px; }
+  .history-item{ display:flex; justify-content:space-between; padding: 12px 0; border-bottom: 1px solid #2a1116; font-size: 13px; }
+  .history-item:last-child{ border-bottom:none; }
+  .history-item .h-name{ color: var(--text); }
+  .history-item .h-date{ color: var(--muted); font-size: 11px; margin-top:2px; }
+  .history-item .h-price{ color: var(--red); font-weight:600; }
 
   /* COMPTE */
   .profile-header{ display:flex; align-items:center; gap:14px; margin-bottom: 20px; }
@@ -281,6 +287,97 @@
     box-shadow: 0 0 0 2px var(--red-dark);
   }
   .nav-center-label{ text-align:center; font-size:10px; color: var(--text); margin-top:2px; }
+
+  /* TOAST */
+  #toast{
+    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--card); border: 1.5px solid var(--card-border); border-radius: 12px;
+    padding: 12px 20px; font-size: 13px; color: var(--text);
+    opacity: 0; pointer-events: none; transition: all .25s ease; z-index: 200;
+    max-width: 85%; text-align: center;
+  }
+  #toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== DÉCORATIONS SUPPLÉMENTAIRES ===== */
+
+  /* Badge décoratif (auth + hero) */
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(234,31,61,0.12); border: 1px solid var(--card-border);
+    color: var(--red); font-size: 11px; font-weight:600; letter-spacing:.3px;
+  }
+  .badge-dot{ width:6px; height:6px; border-radius:50%; background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+  /* Fond décoratif de l'écran auth */
+  #authScreen::before{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(234,31,61,0.10), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(234,31,61,0.08), transparent 45%);
+  }
+  #authScreen{ position:fixed; overflow:hidden; }
+  .auth-logo{ position:relative; box-shadow: 0 0 0 6px rgba(234,31,61,0.06), 0 0 24px rgba(234,31,61,0.25); animation: authGlow 2.4s ease-in-out infinite; }
+  @keyframes authGlow{
+    0%,100%{ box-shadow: 0 0 0 6px rgba(234,31,61,0.06), 0 0 24px rgba(234,31,61,0.25); }
+    50%{ box-shadow: 0 0 0 10px rgba(234,31,61,0.10), 0 0 34px rgba(234,31,61,0.4); }
+  }
+  .auth-badges{ display:flex; justify-content:center; gap:8px; margin-bottom:22px; position:relative; z-index:1; }
+  .auth-form, .auth-title, .auth-subtitle{ position:relative; z-index:1; }
+
+  /* Séparateur décoratif */
+  .divider{
+    display:flex; align-items:center; gap:10px;
+    color: var(--muted); font-size: 11px; margin: 18px 0;
+  }
+  .divider::before, .divider::after{ content:''; flex:1; height:1px; background: var(--card-border); }
+
+  /* Carte de solde */
+  .balance-card{
+    background: linear-gradient(135deg, #200910, #000 75%);
+    border: 1.5px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 18px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .balance-label{ font-size:11px; color: var(--muted); letter-spacing:.4px; margin-bottom:4px; }
+  .balance-amount{ font-size: 24px; font-weight:700; color: var(--text); }
+  .balance-amount span{ color: var(--red); }
+  .balance-icon{
+    width:44px; height:44px; border-radius:50%;
+    background: rgba(234,31,61,0.12); border:1.5px solid var(--card-border);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  /* Bouton déposer (accès rapide) */
+  .quick-item.highlight{ border-color: var(--red); }
+
+  /* Section dépôt */
+  .deposit-methods{ display:flex; gap:8px; margin: 14px 0; }
+  .deposit-method{
+    flex:1; padding: 12px 6px; border-radius: 12px;
+    border: 1.5px solid var(--card-border); background: var(--card);
+    text-align:center; font-size: 12px; color: var(--muted); cursor:pointer;
+  }
+  .deposit-method.active{ border-color: var(--red); color: var(--text); background: rgba(234,31,61,0.1); }
+
+  /* Ruban "nouveau" sur les produits */
+  .product-card{ position: relative; }
+  .product-ribbon{
+    position:absolute; top:8px; left:8px; z-index:2;
+    background: var(--red); color:#fff; font-size:9px; font-weight:700;
+    padding: 3px 8px; border-radius: 6px; letter-spacing:.3px;
+  }
+
+  /* Hero décoré avec petit motif */
+  .hero{ position:relative; overflow:hidden; }
+  .hero::after{
+    content:''; position:absolute; top:-30%; right:-15%; width:200px; height:200px;
+    background: radial-gradient(circle, rgba(234,31,61,0.18), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-badge{ margin-bottom:10px; }
 </style>
 </head>
 <body>
@@ -291,6 +388,10 @@
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ea1f3d" stroke-width="2"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
   </div>
 
+  <div class="auth-badges">
+    <span class="badge-pill"><span class="badge-dot"></span> Boutique vérifiée</span>
+  </div>
+
   <!-- Connexion -->
   <div class="auth-form active" id="loginForm">
     <div class="auth-title">Connexion</div>
@@ -298,7 +399,7 @@
     <input type="tel" class="form-input" id="loginPhone" placeholder="Numéro de téléphone">
     <input type="password" class="form-input" id="loginPassword" placeholder="Mot de passe">
     <div class="auth-error" id="loginError"></div>
-    <button class="btn-primary" onclick="handleLogin()">Se connecter</button>
+    <button class="btn-primary" id="loginBtn" onclick="handleLogin()">Se connecter</button>
     <div class="auth-switch">Pas encore de compte ? <a onclick="switchAuth('register')">Créer un compte</a></div>
   </div>
 
@@ -311,7 +412,7 @@
     <input type="password" class="form-input" id="regPassword" placeholder="Mot de passe">
     <input type="password" class="form-input" id="regPassword2" placeholder="Confirmer le mot de passe">
     <div class="auth-error" id="registerError"></div>
-    <button class="btn-primary" onclick="handleRegister()">S'inscrire</button>
+    <button class="btn-primary" id="registerBtn" onclick="handleRegister()">S'inscrire</button>
     <div class="auth-switch">Déjà un compte ? <a onclick="switchAuth('login')">Se connecter</a></div>
   </div>
 </div>
@@ -331,12 +432,27 @@
   <!-- ACCUEIL -->
   <section id="accueil" class="active">
     <div class="hero">
+      <div class="hero-badge"><span class="badge-pill"><span class="badge-dot"></span> Officiel</span></div>
       <h1>Bienvenue dans votre boutique</h1>
       <p>Découvrez nos nouveautés et profitez d'offres exclusives sur une sélection de produits.</p>
     </div>
 
+    <div class="balance-card">
+      <div>
+        <div class="balance-label">SOLDE DISPONIBLE</div>
+        <div class="balance-amount"><span id="balanceValue">0</span> FCFA</div>
+      </div>
+      <div class="balance-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ea1f3d" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-4-5-1.5S9 8 12 8s5-1 5-3.5S13.5 5 12 8z"/></svg>
+      </div>
+    </div>
+
     <div class="section-title">Accès rapide</div>
     <div class="quick-grid">
+      <div class="quick-item highlight" onclick="showSection('depot', document.querySelector('[data-target=depot]'))">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Déposer
+      </div>
       <div class="quick-item" onclick="showSection('produits', document.querySelector('[data-target=produits]'))">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 7h-3V6a4 4 0 0 0-8 0v1H6a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1zM9 6a3 3 0 0 1 6 0v1H9V6z"/></svg>
         Nouveautés
@@ -392,8 +508,29 @@
       <h2 style="font-size:17px; margin-bottom:6px;">Échanger un code cadeau</h2>
       <p style="color:var(--muted); font-size:13px;">Saisissez votre code pour recevoir votre récompense.</p>
       <input type="text" class="code-input" id="giftCodeInput" placeholder="ENTREZ VOTRE CODE">
-      <button class="btn-primary" onclick="redeemCode()">Valider le code</button>
+      <button class="btn-primary" id="redeemBtn" onclick="redeemCode()">Valider le code</button>
       <div class="exchange-msg" id="exchangeMsg"></div>
+    </div>
+  </section>
+
+  <!-- DEPOT -->
+  <section id="depot">
+    <div class="card exchange-box">
+      <div class="exchange-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+      <h2 style="font-size:17px; margin-bottom:6px;">Déposer des fonds</h2>
+      <p style="color:var(--muted); font-size:13px;">Choisissez un moyen de paiement et entrez le montant.</p>
+
+      <div class="deposit-methods">
+        <div class="deposit-method active" data-method="Wave" onclick="selectDepositMethod(this)">Wave</div>
+        <div class="deposit-method" data-method="Orange Money" onclick="selectDepositMethod(this)">Orange Money</div>
+        <div class="deposit-method" data-method="Free Money" onclick="selectDepositMethod(this)">Free Money</div>
+      </div>
+
+      <input type="number" class="form-input" id="depositAmount" placeholder="Montant en FCFA">
+      <button class="btn-primary" id="depositBtn" onclick="submitDeposit()">Envoyer la demande</button>
+      <div class="exchange-msg" id="depositMsg"></div>
     </div>
   </section>
 
@@ -406,13 +543,13 @@
       <div class="tab" data-tab="codes" onclick="switchTab(this)">Codes</div>
     </div>
     <div class="history-panel" id="panel-paiements">
-      <div class="card history-list"><div class="empty-state">Aucun paiement pour le moment.</div></div>
+      <div class="card history-list" id="list-paiements"><div class="empty-state">Aucun paiement pour le moment.</div></div>
     </div>
     <div class="history-panel" id="panel-achats" style="display:none;">
-      <div class="card history-list"><div class="empty-state">Aucun produit acheté pour le moment.</div></div>
+      <div class="card history-list" id="list-achats"><div class="empty-state">Aucun produit acheté pour le moment.</div></div>
     </div>
     <div class="history-panel" id="panel-codes" style="display:none;">
-      <div class="card history-list"><div class="empty-state">Aucun code utilisé pour le moment.</div></div>
+      <div class="card history-list" id="list-codes"><div class="empty-state">Aucun code utilisé pour le moment.</div></div>
     </div>
   </section>
 
@@ -471,38 +608,76 @@
 
 </div>
 
-<script>
-  // --- Données produits d'exemple (à remplacer par vos vrais produits) ---
-  const products = [
-    { name: "Produit 1", price: "5 000 FCFA" },
-    { name: "Produit 2", price: "12 500 FCFA" },
-    { name: "Produit 3", price: "3 200 FCFA" },
-    { name: "Produit 4", price: "8 900 FCFA" },
-    { name: "Produit 5", price: "15 000 FCFA" },
-    { name: "Produit 6", price: "6 750 FCFA" }
-  ];
+<div id="toast"></div>
 
-  function productCardHTML(p){
+<script>
+  // ======================================================
+  // ÉTAT
+  // ======================================================
+  let currentUser = null; // { name, phone }
+  let products = [];
+
+  function toast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 2500);
+  }
+
+  // ======================================================
+  // PRODUITS (chargés depuis le backend)
+  // ======================================================
+  function productCardHTML(p, index){
     return `
       <div class="product-card">
+        ${index === 0 ? '<div class="product-ribbon">Nouveau</div>' : ''}
         <div class="product-thumb">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20 7h-3V6a4 4 0 0 0-8 0v1H6a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8a1 1 0 0 0-1-1z"/></svg>
         </div>
         <div class="product-info">
           <div class="product-name">${p.name}</div>
           <div class="product-price">${p.price}</div>
-          <button class="btn-add">Ajouter</button>
+          <button class="btn-add" onclick="addToOrder('${p.id}')">Ajouter</button>
         </div>
       </div>`;
   }
-  document.getElementById('products-grid').innerHTML = products.map(productCardHTML).join('');
 
-  // --- Navigation entre sections ---
+  async function loadProducts(){
+    try{
+      const res = await fetch('/api/products');
+      const data = await res.json();
+      products = data.products || [];
+    }catch(e){
+      products = [];
+    }
+    document.getElementById('products-grid').innerHTML = products.map((p, i) => productCardHTML(p, i)).join('');
+  }
+
+  async function addToOrder(productId){
+    if(!currentUser){ toast('Connectez-vous pour commander.'); return; }
+    try{
+      const res = await fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentUser.phone, productId })
+      });
+      const data = await res.json();
+      toast(data.message || (data.success ? 'Ajouté !' : 'Erreur.'));
+    }catch(e){
+      toast('Serveur injoignable.');
+    }
+  }
+
+  // ======================================================
+  // Navigation entre sections
+  // ======================================================
   function showSection(id, btn){
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     if(btn) btn.classList.add('active');
+    if(id === 'historique') loadHistory();
   }
 
   function toggleHelp(){
@@ -516,7 +691,9 @@
     if(tabEl) switchTab(tabEl);
   }
 
-  // --- Onglets Historique ---
+  // ======================================================
+  // Onglets Historique
+  // ======================================================
   function switchTab(el){
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
@@ -524,21 +701,100 @@
     document.getElementById('panel-' + el.dataset.tab).style.display = 'block';
   }
 
-  // --- Échange de code cadeau ---
-  function redeemCode(){
+  function formatDate(ts){
+    if(!ts) return '';
+    const d = new Date(ts);
+    return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+  }
+
+  async function loadHistory(){
+    if(!currentUser) return;
+    try{
+      const res = await fetch('/api/history?phone=' + encodeURIComponent(currentUser.phone));
+      const data = await res.json();
+      if(!data.success) return;
+
+      const listAchats = document.getElementById('list-achats');
+      if(data.purchases && data.purchases.length){
+        listAchats.innerHTML = data.purchases.map(p => `
+          <div class="history-item">
+            <div><div class="h-name">${p.productName}</div><div class="h-date">${formatDate(p.date)}</div></div>
+            <div class="h-price">${p.price || ''}</div>
+          </div>`).join('');
+      } else {
+        listAchats.innerHTML = '<div class="empty-state">Aucun produit acheté pour le moment.</div>';
+      }
+
+      const listCodes = document.getElementById('list-codes');
+      if(data.codes && data.codes.length){
+        listCodes.innerHTML = data.codes.map(c => `
+          <div class="history-item">
+            <div><div class="h-name">${c.code}</div><div class="h-date">${formatDate(c.date)}</div></div>
+            <div class="h-price">${c.reward}</div>
+          </div>`).join('');
+      } else {
+        listCodes.innerHTML = '<div class="empty-state">Aucun code utilisé pour le moment.</div>';
+      }
+
+      const listPaiements = document.getElementById('list-paiements');
+      if(data.payments && data.payments.length){
+        listPaiements.innerHTML = data.payments.map(p => `
+          <div class="history-item">
+            <div><div class="h-name">${p.label || 'Paiement'}</div><div class="h-date">${formatDate(p.date)}</div></div>
+            <div class="h-price">${p.amount || ''}</div>
+          </div>`).join('');
+      } else {
+        listPaiements.innerHTML = '<div class="empty-state">Aucun paiement pour le moment.</div>';
+      }
+    }catch(e){
+      // silencieux : les états vides par défaut restent affichés
+    }
+  }
+
+  // ======================================================
+  // Échange de code cadeau
+  // ======================================================
+  async function redeemCode(){
     const input = document.getElementById('giftCodeInput');
     const msg = document.getElementById('exchangeMsg');
+    const btn = document.getElementById('redeemBtn');
+
     if(!input.value.trim()){
       msg.style.color = 'var(--red)';
       msg.textContent = 'Veuillez entrer un code.';
       return;
     }
+    if(!currentUser){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Connectez-vous pour échanger un code.';
+      return;
+    }
+
     msg.style.color = 'var(--muted)';
     msg.textContent = 'Vérification du code en cours...';
-    input.value = '';
+    btn.disabled = true;
+
+    try{
+      const res = await fetch('/api/redeem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentUser.phone, code: input.value.trim() })
+      });
+      const data = await res.json();
+      msg.style.color = data.success ? '#3ecf6d' : 'var(--red)';
+      msg.textContent = data.message || (data.success ? 'Code validé !' : 'Code invalide.');
+      if(data.success) input.value = '';
+    }catch(e){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Serveur injoignable, réessayez plus tard.';
+    }finally{
+      btn.disabled = false;
+    }
   }
 
-  // --- Connexion / Inscription ---
+  // ======================================================
+  // Connexion / Inscription (vrai backend)
+  // ======================================================
   function switchAuth(which){
     document.getElementById('loginForm').classList.toggle('active', which === 'login');
     document.getElementById('registerForm').classList.toggle('active', which === 'register');
@@ -546,26 +802,54 @@
     document.getElementById('registerError').textContent = '';
   }
 
-  function handleLogin(){
+  async function handleLogin(){
     const phone = document.getElementById('loginPhone').value.trim();
     const pass = document.getElementById('loginPassword').value.trim();
     const err = document.getElementById('loginError');
+    const btn = document.getElementById('loginBtn');
+
     if(!phone || !pass){
       err.textContent = 'Veuillez remplir tous les champs.';
       return;
     }
-    // Ici : appeler votre backend pour vérifier les identifiants
-    document.getElementById('profilePhone').textContent = phone;
-    document.getElementById('infoPhone').textContent = phone;
-    enterApp();
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Connexion...';
+
+    try{
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, password: pass })
+      });
+      const data = await res.json();
+
+      if(!data.success){
+        err.textContent = data.message || 'Numéro ou mot de passe incorrect.';
+        return;
+      }
+
+      currentUser = data.user;
+      localStorage.setItem('shopUser', JSON.stringify(currentUser));
+      applyUserToUI();
+      enterApp();
+    }catch(e){
+      err.textContent = 'Serveur injoignable, réessayez plus tard.';
+    }finally{
+      btn.disabled = false;
+      btn.textContent = 'Se connecter';
+    }
   }
 
-  function handleRegister(){
+  async function handleRegister(){
     const name = document.getElementById('regName').value.trim();
     const phone = document.getElementById('regPhone').value.trim();
     const pass = document.getElementById('regPassword').value.trim();
     const pass2 = document.getElementById('regPassword2').value.trim();
     const err = document.getElementById('registerError');
+    const btn = document.getElementById('registerBtn');
+
     if(!name || !phone || !pass || !pass2){
       err.textContent = 'Veuillez remplir tous les champs.';
       return;
@@ -574,24 +858,118 @@
       err.textContent = 'Les mots de passe ne correspondent pas.';
       return;
     }
-    // Ici : appeler votre backend pour créer le compte
-    document.getElementById('profileName').textContent = name;
-    document.getElementById('profilePhone').textContent = phone;
-    document.getElementById('infoName').textContent = name;
-    document.getElementById('infoPhone').textContent = phone;
-    enterApp();
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Création...';
+
+    try{
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, password: pass })
+      });
+      const data = await res.json();
+
+      if(!data.success){
+        err.textContent = data.message || 'Impossible de créer le compte.';
+        return;
+      }
+
+      currentUser = data.user;
+      localStorage.setItem('shopUser', JSON.stringify(currentUser));
+      applyUserToUI();
+      enterApp();
+    }catch(e){
+      err.textContent = 'Serveur injoignable, réessayez plus tard.';
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "S'inscrire";
+    }
+  }
+
+  function applyUserToUI(){
+    if(!currentUser) return;
+    document.getElementById('profileName').textContent = currentUser.name;
+    document.getElementById('profilePhone').textContent = currentUser.phone;
+    document.getElementById('infoName').textContent = currentUser.name;
+    document.getElementById('infoPhone').textContent = currentUser.phone;
+    document.getElementById('balanceValue').textContent = currentUser.balance || 0;
+  }
+
+  let selectedDepositMethod = 'Wave';
+  function selectDepositMethod(el){
+    document.querySelectorAll('.deposit-method').forEach(m => m.classList.remove('active'));
+    el.classList.add('active');
+    selectedDepositMethod = el.dataset.method;
+  }
+
+  async function submitDeposit(){
+    const input = document.getElementById('depositAmount');
+    const msg = document.getElementById('depositMsg');
+    const btn = document.getElementById('depositBtn');
+    const amount = Number(input.value);
+
+    if(!currentUser){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Connectez-vous pour déposer.';
+      return;
+    }
+    if(!amount || amount <= 0){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Entrez un montant valide.';
+      return;
+    }
+
+    msg.style.color = 'var(--muted)';
+    msg.textContent = 'Envoi de la demande...';
+    btn.disabled = true;
+
+    try{
+      const res = await fetch('/api/deposit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentUser.phone, amount, method: selectedDepositMethod })
+      });
+      const data = await res.json();
+      msg.style.color = data.success ? '#3ecf6d' : 'var(--red)';
+      msg.textContent = data.message || (data.success ? 'Demande envoyée !' : 'Erreur.');
+      if(data.success) input.value = '';
+    }catch(e){
+      msg.style.color = 'var(--red)';
+      msg.textContent = 'Serveur injoignable, réessayez plus tard.';
+    }finally{
+      btn.disabled = false;
+    }
   }
 
   function enterApp(){
     document.getElementById('authScreen').classList.add('hidden');
     document.getElementById('app').style.display = 'block';
+    loadProducts();
   }
 
   function handleLogout(){
+    currentUser = null;
+    localStorage.removeItem('shopUser');
     document.getElementById('app').style.display = 'none';
     document.getElementById('authScreen').classList.remove('hidden');
     switchAuth('login');
   }
+
+  // ======================================================
+  // Reconnexion automatique si déjà connecté (session locale)
+  // ======================================================
+  (function init(){
+    try{
+      const saved = localStorage.getItem('shopUser');
+      if(saved){
+        currentUser = JSON.parse(saved);
+        applyUserToUI();
+        enterApp();
+      }
+    }catch(e){}
+  })();
 </script>
 
 </body>
