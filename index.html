@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Joyeux Anniversaire 🎉</title>
+<title>L'Allemand Belge 🎉</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -219,8 +219,8 @@
 <div id="auth-screen">
   <div class="auth-card card">
     <div class="auth-photo"><img src="https://files.catbox.moe/jqtw3i.jpg" alt=""></div>
-    <div class="eyebrow">Bienvenue</div>
-    <h1 style="font-size:26px;margin-bottom:16px;">On fête ça ensemble 🎉</h1>
+    <div class="eyebrow">Bienvenue sur</div>
+    <h1 style="font-size:26px;margin-bottom:16px;">L'Allemand Belge 🎉</h1>
 
     <div class="tabs">
       <button class="tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</button>
@@ -248,7 +248,7 @@
 
   <!-- ACCUEIL -->
   <section class="page" id="page-accueil">
-    <div class="topbar"><span class="brand">🎈 Ton espace fête</span></div>
+    <div class="topbar"><span class="brand">🎈 L'Allemand Belge</span></div>
     <div class="site-title">Joyeux Anniversaire<br><span style="color:var(--gold-soft)">L'Allemand Belge 🇧🇪</span></div>
     <div class="site-sub">Rendez-vous le 30 septembre pour souffler les bougies 🕯️</div>
 
@@ -458,7 +458,7 @@ function submitWish(textareaId, errId, okId){
   const errEl = document.getElementById(errId);
   const okEl = okId ? document.getElementById(okId) : null;
   errEl.textContent = ''; if(okEl) okEl.textContent = '';
-  if(!text){ errEl.textContent = 'Écris un petit message avant d\\'envoyer.'; return; }
+  if(!text){ errEl.textContent = "Écris un petit message avant d'envoyer."; return; }
   const username = DB.session();
   let wishes = DB.wishes();
   wishes.unshift({ username, text, date: new Date().toLocaleDateString('fr-FR', {day:'2-digit',month:'short',year:'numeric'}) });
@@ -473,7 +473,7 @@ function renderWishes(){
   const wishes = DB.wishes();
   const list = document.getElementById('wishes-list');
   if(wishes.length === 0){
-    list.innerHTML = '<div class="empty-note">Aucun message pour l\\'instant. Sois le premier à écrire quelque chose de gentil ✨</div>';
+    list.innerHTML = "<div class=\"empty-note\">Aucun message pour l'instant. Sois le premier à écrire quelque chose de gentil ✨</div>";
     return;
   }
   list.innerHTML = wishes.map(w => `
